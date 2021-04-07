@@ -73,3 +73,90 @@ class Chips:
 
 
 
+def take_bet(chips):
+
+    while True:
+
+        try:
+            chips.bet = int(input('How manu chips would you like to bet?'))
+        except:
+            print('Sorry please put a number')
+        else:
+            if chips.bet > chips.total:
+                print('sorry you do not have enough chips! you have {}'.format(chips.total))
+            else:
+                break
+
+def hit(deck,hand):
+    single_card = deck.deal()
+    hand.add_card(single_card)
+    hand.adjust_for_ace()
+
+
+def  hit_or_stand(deck,hand):
+    global playing
+
+    while True:
+        x = input('Hit or stand enter h or s ')
+
+        if x[0].lower() == 'h':
+            hit(deck,hand)
+        elif x[0].lower() == 's':
+            print('player stands dealer turns')
+            playing = False
+
+        else:
+            print('sorry please enter h or s')
+            continue
+        break
+
+
+def show_some(player,dealer):
+    #dealer.cards[]
+    #show only one dealer card
+    print('\n Dealers hand: ')
+    print('first card hidden')
+    print(dealer.cards[1])
+
+
+    #show all player cards
+    print('\n players hand: ')
+    for card in player.cards: 
+        print(card)
+
+
+def show_all(player,dealer):
+
+    #show all dealers card
+    print('\n dealer's hand: ')
+    for card in dealer.cards: 
+        print(card)
+    #calculate and display value 
+    print(f'values of dealer hand is: {dealer.value}')
+
+    #show all players cards
+    print('\n players hand: ')
+    for card in player.cards: 
+        print(card)
+    print(f'values of player hand is: {player.value}')
+
+
+
+def player_busts(player,dealer,chips):
+    print ('bust player')
+    chips.lost_bet() 
+
+def player_wins(player,dealer,chips):
+    print('player wins!')
+    chips.win_bet()
+
+def dealer_bust(player,dealer,chips):
+    print('player wins! dealer busted')
+    chips.win_bet()
+
+def dealer_wins(player,dealer,chips):
+    print('dealer wins!')
+    chips_lose_bet()
+
+def push(player,dealer):
+    print('Dealer and player tied')
