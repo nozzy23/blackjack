@@ -35,3 +35,41 @@ class Deck:
 
     def deal(self):
         single_card = self.deck.pop()
+        return single_card
+
+class Hand:
+    def __init__(self):
+        self.cards = []
+        self.value = 0
+        self.aces = 0 
+    
+    def add_card(self,card):
+        #card passed in from deck.deal() --> single card (suit,rank)
+        self.cards.append(card)
+        self.value += values[card.rank]
+
+        #track ace
+        if card.rank == 'Ace':
+            self.aces += 1
+
+    def adjust_for_ace(self):
+        
+        while self.value > 21 and self.aces:
+            self.value -= 10
+            self.aces -= 1
+
+
+class Chips:
+
+    def __init__(self,total=100):
+        self.total = total
+        self.bet = 0
+
+    def win_bet(self):
+        self.total += self.bet
+
+    def lose_bet(self):
+        self.total -= self.bet
+
+
+
